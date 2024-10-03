@@ -1,0 +1,35 @@
+services:
+  openldap:
+    image: docker.io/bitnami/openldap:2.6
+    ports:
+      - '389:1389'
+      - '636:1636'
+    environment:
+      LDAP_ADMIN_USERNAME: "admin"
+      LDAP_ADMIN_PASSWORD: "adminpassword"
+      LDAP_ROOT: "dc=example,dc=edu"
+      LDAP_ADMIN_DN: "cn=admin,dc=example,dc=edu"
+      BITNAMI_DEBUG: "true"
+      #LDAP_CUSTOM_LDIF_DIR: "/ldifs/"
+      #LDAP_CUSTOM_SCHEMA_DIR: "/schemas/"
+      #LDAP_CONFIG_ADMIN_ENABLED: "yes"
+      #LDAP_CONFIG_ADMIN_USERNAME: "admin"
+      #LDAP_CONFIG_ADMIN_PASSWORD: "admin"
+      #LDAP_ENABLE_TLS: "no"
+      #LDAP_PASSWORD_HASH: "{SSHA}"
+      #LDAP_CONFIGURE_PPOLICY: "yes"
+      #LDAP_PPOLICY_HASH_CLEARTEXT: "yes"
+      #LDAP_EXTRA_SCHEMAS: "cosine,inetorgperson,nis,disable-bind-anon,openssh-lpk,memberof"
+      LDAP_EXTRA_SCHEMAS: "cosine,inetorgperson,nis"
+      #LDAP_CUSTOM_SCHEMA_FILE: "/schemas/eduperson.ldif"
+      #LDAP_USERS: "user"
+      #LDAP_PASSWORDS: "user"
+      LDAP_BASE: "dc=example,dc=edu"
+    volumes:
+      - 'openldap_data:/bitnami/openldap'
+      - './ldifs:/ldifs'
+      - './schemas:/schemas'
+
+volumes:
+  openldap_data:
+    driver: local
